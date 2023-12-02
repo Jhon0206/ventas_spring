@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{template :: head}"></head>
+    <body>
+        <nav th:replace="~{template :: menu}"></nav>
+        <div class="container">            
+            <div class="row">                
+                <div class="col-12 col-sm-6 col-lg-4 p-1">
+                    <h3 class="text-center" style="text-transform:uppercase;">[[${product.nombre}]]</h3>
+                    <img src="/img/products/2.png" class="img-thumbnail" alt="demo"/>                    
+                </div>
+                <div class="col-12 col-sm-6 col-lg-8 p-1">
+                    <p><strong>[[#{product.categories}]]: </strong>[[${product.categoria.nombre}]]</p>
+                    <hr/>
+                    <p class="my-3">[[${product.descripcion}]]</p>
+                    <hr/>
+                    <h6 class="text-end">Disponibilidad: <span class="badge bg-success p-2">[[${product.cantidad}]]</span> [[#{product.units}]]</h6>
+                    <p class="text-end">
+                        <span class="badge bg-light fs-2 text-dark text-wrap p-4">
+                            [[#{product.price}]]: S/ [[${product.precio}]]
+                        </span>  
+                    </p>
+                    <div class="d-grid gap-2">
+                        <a class="btn btn-success p-2" href="/soon">
+                            [[#{product.add}]]
+                        </a>
+                        <a class="btn btn-info p-2" href="/products">
+                            Volver a productos
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="~{template :: footer}"></footer>        
+        <script th:replace="~{template :: #bootstrap}"></script> 
+    </body>
+</html>

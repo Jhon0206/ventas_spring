@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{template :: head}"></head>
+    <body>
+        <nav th:replace="~{template :: menu-intranet}"></nav>
+        <div class="container">
+            <h1 th:text="#{menu.products}" style="text-transform:uppercase;">...</h1>
+            <hr/>
+            <a class="btn btn-outline-primary btn-sm" th:href="@{new}">Nuevo</a>
+            <p class="alert btn-warning" th:if="${error}">[[${error}]]</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Categoría</th>  
+                        <th colspan="2">Acciones</th>                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item : ${data}">
+                        <th>[[${item.id}]]</th>
+                        <td>[[${item.nombre}]]</td>
+                        <td>[[${item.descripcion}]]</td>
+                        <td>[[${item.cantidad}]]</td>
+                        <td>[[${item.precio}]]</td>
+                        <td>[[${item.categoria.id}]] - [[${item.categoria.nombre}]]</td>
+                        <th>
+                            <a class="btn btn-warning btn-sm"
+                               th:href="@{edit/{id}(id=${item.id})}">
+                                Editar
+                            </a>
+                            <a class="btn btn-danger btn-sm"
+                               onclick="return confirm('¿Deseas eliminar el registro?')"
+                               th:href="@{delete/{id}(id=${item.id})}">
+                                Eliminar
+                            </a>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <footer th:replace="~{template :: footer}"></footer>        
+        <script th:replace="~{template :: #bootstrap}"></script> 
+    </body>
+</html>

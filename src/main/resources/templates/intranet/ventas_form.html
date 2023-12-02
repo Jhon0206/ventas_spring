@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{template :: head}"></head>
+    <body>
+        <nav th:replace="~{template :: menu-intranet}"></nav>
+        <div class="container">
+            <h1 th:text="#{menu.products}" style="text-transform:uppercase;">...</h1>
+            <a class="btn btn-outline-secondary btn-sm" th:href="@{/productos/list}">Regresar</a>
+            <p class="alert alert-danger my-2" th:if="${error}">[[${error}]]</p>
+            <hr/>
+            <form action="#" th:action="@{/venta/send}"
+                  th:object="${venta}" method="post" class="row g-3">
+                <div class="col-md-6 my-2">
+                    <label class="form-label">Empleado</label>
+                    <select th:field="*{empleado}" class="form-control">
+                        <option th:each="e : ${empleados}" th:value="${e.id}">
+                            [[${e.nombres}]] [[${e.paterno}]] [[${e.materno}]]
+                        </option>
+                    </select>
+                </div>
+                <div class="col-md-6 my-2">
+                    <label class="form-label">Cliente</label>
+                    <select th:field="*{cliente}" class="form-control">
+                        <option th:each="c : ${clientes}" th:value="${c.id}">
+                            [[${c.nombres}]] [[${c.apellidos}]]
+                        </option>
+                    </select>
+                </div>
+                <hr/>
+                <div class="col-6 col-md-4 my-2">
+                    <label for="producto" class="form-label">Productos</label>
+                    <select id='producto' class="form-control" onchange="cargarProducto()">
+                        <option>Seleccione un producto</option>
+                        <option th:each="p : ${productos}" th:value="${p.id}">
+                            [[${p.nombre}]]
+                        </option>
+                    </select>
+                </div>
+                <div class="col-6 col-md-3 my-2">
+                    <label for="precio" class="form-label">Precio unitario</label>
+                    <input type="number" class="form-control" id="precio" step="0.01" disabled/>
+                </div>
+                <div class="col-6 col-md-3 my-2">
+                    <label for="cantidad" class="form-label">Cantidad</label>
+                    <input type="number" class="form-control" id="cantidad" min="0" disabled/>
+                </div>
+                <div class="col-6 col-md-2 my-2">
+                    <div class="d-grid gap-2">
+                        <label class="form-label m-0">&nbsp;</label>           
+                        <button class="btn btn-primary" id='btnAgregar' type="button" onclick="agregarProduto();" disabled>Agregar</button>
+                    </div>
+                </div>
+                <div class="col-12 table-responsive">
+                    <table class="table table-sm table-striped">
+                        <thead>
+                            <tr class="table-dark">
+                                <th>Id</th>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Cantidad</th>
+                                <th>Precio unitario</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider" id='detalles'>                            
+                        </tbody>
+                        <tfoot class="table-group-divider">
+                            <tr class="table-dark">
+                                <th colspan="5" class="text-end">TOTAL</th>
+                                <th id='total'></th>
+                            </tr>
+                        </tfoot>
+                    </table>                    
+                </div>
+
+                <p class="text-center mt-3">
+                    <button type="submit" class="btn btn-success mx-3">Realizar venta</button>
+                </p>
+            </form>
+        </div>
+        <footer th:replace="~{template :: footer}"></footer>        
+        <script th:replace="~{template :: #bootstrap}"></script> 
+        <script th:inline="javascript">
+            let total = 0;
+            let cont = 0;
+            /*Obtener información del producto*/
+            const cargarProducto = () => {
+                // Obtener el valor seleccionado (ID del producto)
+                let idProducto = document.getElementById('producto').value;
+                // Obtener la lista de productos desde Thymeleaf
+                let productos = /*[[${productos}]]*/ [];
+                // Encontrar el producto seleccionado en la lista
+                let productoSeleccionado = productos.find((e) => e.id == idProducto);
+                // Verificar si se encontró el producto
+                if (productoSeleccionado) {
+                    // Establecer cantidad máxima y precio
+                    document.getElementById('precio').setAttribute("value", productoSeleccionado.precio);
+                    document.getElementById('cantidad').setAttribute("max", productoSeleccionado.cantidad);
+                    document.getElementById('precio').disabled = false;
+                    document.getElementById('cantidad').disabled = false;
+                    document.getElementById('btnAgregar').disabled = false;
+                } else {
+                    // Limpiar el campo de entrada si no se encuentra el producto
+                    document.getElementById('precio').setAttribute("value", '');
+                    document.getElementById('cantidad').setAttribute("max", '0');
+                    document.getElementById('precio').disabled = true;
+                    document.getElementById('cantidad').disabled = true;
+                    document.getElementById('btnAgregar').disabled = true;
+                }
+            };
+
+            /*Agregar produto*/
+            const agregarProduto = () => {
+                let idProducto = document.getElementById('producto').value;
+                // Obtener la lista de productos desde Thymeleaf
+                let productos = /*[[${productos}]]*/ [];
+                // Encontrar el producto seleccionado en la lista
+                let item = productos.find((e) => e.id == idProducto);               
+
+                let precio = document.getElementById('precio').value;
+                let cant = document.getElementById('cantidad').value;
+                let body = `<tr>
+                                <td><input type='text' class='form-control-plaintext' value='${item.id}' name='detalles[${cont}].producto' readonly/></td>
+                                <td><input type='text' class='form-control-plaintext' value='${item.nombre}' readonly/></td>
+                                <td><input type='text' class='form-control-plaintext' value='${item.descripcion}' readonly/></td>
+                                <td><input type='text' class='form-control-plaintext' value='${cant}' name='detalles[${cont}].cantidad' readonly/></td>
+                                <td><input type='text' class='form-control-plaintext' value='${precio}'name='detalles[${cont}].precio' readonly/></td>
+                                <td><input type='text' class='form-control-plaintext' value='${cant*precio}' readonly/></td>
+                            </tr>`;
+                document.getElementById("detalles").innerHTML += body;
+                total += parseInt(cant)*parseFloat(precio);
+                cont++;
+                document.getElementById("total").innerHTML = total;
+            };
+        </script> 
+    </body>
+</html>

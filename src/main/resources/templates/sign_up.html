@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{template :: head}"></head>
+    <body>
+        <nav th:replace="~{template :: menu}"></nav>
+        <div class="container">
+            <h1 style="text-transform:uppercase;">[[#{form.login.register}]]</h1>
+             <form action="#" th:action="@{sign_up}" method="post" class="needs-validation" novalidate>
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" required name="user"
+                           th:placeholder="'name@example.com'" th:value="${user}">
+                    <label for="user" th:text="#{form.login.username}"></label>                    
+                </div>
+                <div class="form-floating">
+                    <input type="password" class="form-control" name="pass"
+                           th:placeholder="#{form.login.password}" th:value="${pass}" required>
+                    <label for="pass" th:text="#{form.login.password}"></label>
+                </div>
+                <p class="text-center mt-3">
+                    <input type="submit" class="btn btn-success" th:value="#{form.login.register}" />
+                </p>
+            </form>
+        </div>
+        <footer th:replace="~{template :: footer}"></footer>        
+        <script th:replace="~{template :: #bootstrap}"></script> 
+    </body>
+</html>

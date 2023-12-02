@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{template :: head}"></head>
+    <body>
+        <nav th:replace="~{template :: menu}"></nav>
+        <div class="container">
+            <h1 th:text="#{menu.about}" style="text-transform:uppercase;">...</h1>
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-8 my-2">
+                    <h3>Misión</h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore 
+                        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo 
+                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.                        
+                    </p>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 my-2 p-3">
+                    <img src="/img/about.png" alt="demo" class="img-fluid rounded"/>
+                </div>
+                <hr/>
+                <div class="col-12 col-sm-6 my-2 bg">
+                    <h3>Visión</h3>
+                    <p>
+                        Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, 
+                        est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. 
+                        Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor.
+                        Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. 
+                    </p>
+                </div>
+                <div class="col-12 col-sm-6 my-2">
+                    <h3>Valores</h3>
+                    <p>
+                        Fusce convallis, mauris imperdiet gravida bibendum, nisl turpis suscipit mauris, sed placerat ipsum urna sed risus.
+                        In convallis tellus a mauris. Curabitur non elit ut libero tristique sodales. Mauris a lacus. Donec mattis
+                        semper leo. In hac habitasse platea dictumst. Vivamus facilisis diam at odio. Mauris dictum, nisi eget consequat 
+                        elementum, lacus ligula molestie metus, non feugiat orci magna ac sem.  </p>
+                </div>
+                <hr/>
+                <div class="col-12 col-sm-6 my-2">
+                    <h3>Nuestro equipo</h3>
+                    <p>
+                        Proin nonummy, lacus eget pulvinar lacinia, pede felis dignissim leo, vitae tristique magna lacus sit amet eros. 
+                        Nullam ornare. Praesent odio ligula, dapibus sed, tincidunt eget, dictum ac, nibh. Nam quis lacus. 
+                        Nunc eleifend molestie velit. Morbi lobortis quam eu velit. Donec euismod vestibulum massa. Donec non lectus.
+                    </p>
+                </div>
+                <div class="col-6 col-sm-3 my-2">
+                    <img src="/img/us_2.png" alt="demo" class="rounded-circle img-fluid"/>
+                </div>
+                <div class="col-6 col-sm-3 my-2">
+                    <img src="/img/us_1.png" alt="demo" class="rounded-circle img-fluid"/>
+                </div>
+            </div>
+
+
+
+
+
+
+        </div>
+        <footer th:replace="~{template :: footer}"></footer>        
+        <script th:replace="~{template :: #bootstrap}"></script> 
+    </body>
+</html>
