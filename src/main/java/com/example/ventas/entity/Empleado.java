@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import java.sql.Blob;
 
 @Entity
 public class Empleado extends Persona{
