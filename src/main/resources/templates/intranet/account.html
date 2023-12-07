@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{template :: head}"></head>
+    <body>
+        <nav th:replace="~{template :: menu-intranet}"></nav>
+        <div class="container">            
+            <div class="row my-2">
+                <div class="col-8 col-sm-12 p-2 text-center">                    
+                    <h3 class="card-title text-center mt-2">
+                        Bienvenido <strong>[[${data.nombres}]]</strong>  
+                    </h3>
+                    <hr/>
+                </div>
+                <div class="col-4 col-sm-4 p-2">                    
+                    <img src="/img/us_1.png" alt="demo" class="img-fluid rounded-circle"/>
+                </div>
+                <div class="col-12 col-sm-8 p-2">
+                    <div class="card">
+                        <div class="card-header">       
+                            <h5 class="card-title text-center mt-2">
+                                Información personal 
+                            </h5>
+                        </div>
+                        <div class="card-body">                            
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">DNI: [[${data.dni}]]</li>
+                                <li class="list-group-item">Nombres: [[${data.nombres}]]</li>
+                                <li class="list-group-item">
+                                    Apellidos: 
+                                    [[${data.paterno}]] 
+                                    [[${data.materno}]]
+                                </li>
+                                <li class="list-group-item">Teléfono [[${data.telefono}]]</li>
+                                <li class="list-group-item">Correo: [[${data.correo}]]</li>
+                            </ul>
+                            <p class="text-center mt-3 d-flex flex-wrap justify-content-evenly">
+                                <button class="btn btn-warning my-1" type="button">Editar datos</button>  
+                                <button class="btn btn-info my-1" type="button">Cambiar contraseña</button>                                
+                            </p>
+                        </div>               
+                    </div>
+                </div>
+            </div>           
+        </div>
+        <footer th:replace="~{template :: footer}"></footer>        
+        <script th:replace="~{template :: #bootstrap}"></script> 
+    </body>
+</html>

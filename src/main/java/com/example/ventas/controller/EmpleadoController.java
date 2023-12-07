@@ -57,4 +57,19 @@ public class EmpleadoController {
         return "sign_in";
 
     }
+    
+    @GetMapping("account")
+    public String myAccount(Model model) {
+        //Agregar lógica para capturar el ID del empleado que inicio sesión
+        //Alternativas JWT
+        Integer id = 1;
+        model.addAttribute("data",service.empleadoGet(id));
+        return "intranet/account";
+    }
+    
+    @GetMapping("logout")
+    public String logout(Model model) {
+        //Agregar lógica para cerrar sesión
+        return "index";
+    }
 }

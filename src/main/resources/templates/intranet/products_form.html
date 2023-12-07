@@ -5,9 +5,9 @@
         <nav th:replace="~{template :: menu-intranet}"></nav>
         <div class="container">
             <h1 th:text="#{menu.products}" style="text-transform:uppercase;">...</h1>
-            <a class="btn btn-outline-secondary btn-sm" th:href="@{/productos/list}">Regresar</a>
+            <a class="btn btn-outline-secondary btn-sm" th:href="@{/product/list}">Regresar</a>
             <hr/>
-            <form action="#" th:action="@{/productos/save}"
+            <form action="#" th:action="@{/product/save}"
                   th:object="${product}" method="post">
                 <input type="hidden" th:field="*{id}" th:if="${product.id ne null}"/>  
                 <div class="my-2">

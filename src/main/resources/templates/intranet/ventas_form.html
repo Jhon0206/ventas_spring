@@ -5,7 +5,7 @@
         <nav th:replace="~{template :: menu-intranet}"></nav>
         <div class="container">
             <h1 th:text="#{menu.products}" style="text-transform:uppercase;">...</h1>
-            <a class="btn btn-outline-secondary btn-sm" th:href="@{/productos/list}">Regresar</a>
+            <a class="btn btn-outline-secondary btn-sm" th:href="@{/product/list}">Regresar</a>
             <p class="alert alert-danger my-2" th:if="${error}">[[${error}]]</p>
             <hr/>
             <form action="#" th:action="@{/venta/send}"
