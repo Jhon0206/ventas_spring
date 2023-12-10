@@ -3,7 +3,7 @@
     <head th:replace="~{template :: head}"></head>
     <body>
         <nav th:replace="~{template :: menu-intranet}"></nav>
-        <div class="container">
+        <div class="container my-3">
             <h1 th:text="#{menu.products}" style="text-transform:uppercase;">...</h1>
             <hr/>
             <a class="btn btn-outline-primary btn-sm" th:href="@{new}">Nuevo</a>
@@ -43,8 +43,28 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="row" th:if="${totalPages > 1}">
+                <div class="col-6 col-sm-3">
+                    Elementos: [[${totalItems}]]
+                </div>
+                <div class="col-6 col-sm-5">
+                    <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                        <a class="mx-2" th:if="${currentPage != i}" th:href="@{'?page=' + ${i}}">[[${i}]]</a>
+                        <span th:unless="${currentPage != i}" class="mx-2">[[${i}]]</span>
+                    </span>
+                </div>
+                <div class="col-6 col-sm-2">
+                    <a th:if="${currentPage < totalPages}" th:href="@{?page={val}(val=${currentPage + 1})}">Siguiente</a>
+                    <!--<span th:unless="${currentPage < totalPages}">Siguiente</span>-->
+                </div>
+                <div class="col-6 col-sm-2">
+                    <!--th:href="@{'/page/' + ${totalPages}}"-->
+                    <a th:if="${currentPage < totalPages}" th:href="@{?page={val}(val=${totalPages})}">Último</a>
+                    <!--<span th:unless="${currentPage < totalPages}">Último</span>-->
+                </div>
+            </div>
         </div>
-        <footer th:replace="~{template :: footer}"></footer>        
-        <script th:replace="~{template :: #bootstrap}"></script> 
-    </body>
+    <footer th:replace="~{template :: footer}"></footer>        
+    <script th:replace="~{template :: #bootstrap}"></script> 
+</body>
 </html>

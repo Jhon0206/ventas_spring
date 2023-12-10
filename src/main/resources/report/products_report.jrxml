@@ -95,12 +95,12 @@ http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
                 <textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="80" y="0" width="200" height="30"/>
+                <reportElement x="80" y="0" width="100" height="30"/>
                 <textElement textAlignment="Left" verticalAlignment="Middle"/>
                 <textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
             </textField>
             <textField>
-                <reportElement x="80" y="40" width="200" height="30"/>
+                <reportElement x="180" y="0" width="100" height="30"/>
                 <textElement textAlignment="Left" verticalAlignment="Middle"/>
                 <textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
             </textField>

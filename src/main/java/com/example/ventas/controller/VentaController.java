@@ -40,7 +40,7 @@ public class VentaController {
         model.addAttribute("venta", new Venta());
         model.addAttribute("empleados", empleadoService.empleadoSel());
         model.addAttribute("clientes", clienteService.clienteSel());
-        model.addAttribute("productos", productoService.productoSel());
+        model.addAttribute("productos", productoService.productoSel(null));
         return "intranet/ventas_form";
     }
 

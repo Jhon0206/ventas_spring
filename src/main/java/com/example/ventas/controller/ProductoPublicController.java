@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("products")
@@ -17,8 +18,8 @@ public class ProductoPublicController {
     ProductoService productoService;
     
     @GetMapping
-    public String productsCatalogue(Model model){
-        model.addAttribute("data",productoService.productoSel());
+    public String productsCatalogue(Model model,@RequestParam(defaultValue = "") String name){
+        model.addAttribute("data",productoService.productoSel(name));
         return "products";
     }
     

@@ -32,7 +32,7 @@ public class RestProductoController {
 
     @GetMapping
     public List<Producto> productoSel() {
-        return service.productoSel();
+        return service.productoSel(null);
     }
 
 //    @GetMapping(value = "/categoria/{id}")

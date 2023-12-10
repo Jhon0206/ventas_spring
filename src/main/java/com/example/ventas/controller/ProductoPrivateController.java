@@ -7,6 +7,9 @@ import com.example.ventas.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("product")
@@ -34,8 +38,15 @@ public class ProductoPrivateController {
     JasperReportService<Producto> reportService;
 
     @GetMapping(value = "list")
-    public String productsList(Model model) {
-        model.addAttribute("data", productoService.productoSel());
+    public String productsList(Model model,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "2") int size) {
+        Page< Producto> pagina = productoService.productoPaging(page, size);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", pagina.getTotalPages());
+        model.addAttribute("totalItems", pagina.getTotalElements());
+        model.addAttribute("data", pagina.getContent());
+        
         return "intranet/products_list";
     }
 
@@ -78,20 +89,20 @@ public class ProductoPrivateController {
     }
 
     @GetMapping("/report/{formato}")
-    public ResponseEntity<Resource> reporte(@PathVariable("formato") String format){
+    public ResponseEntity<Resource> reporte(@PathVariable("formato") String format) {
 
         byte[] reportContent = reportService
-                .getItemReport(productoService.productoSel(), format);
+                .getItemReport(productoService.productoSel(null), format);
 
         ByteArrayResource resource = new ByteArrayResource(reportContent);
         return ResponseEntity.ok()
-                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                    .contentLength(resource.contentLength())
-                    .header(HttpHeaders.CONTENT_DISPOSITION,
-                            ContentDisposition.attachment()
-                                    .filename("reporte." + format)
-                                    .build().toString())
-                    .body(resource);
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .contentLength(resource.contentLength())
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        ContentDisposition.attachment()
+                                .filename("reporte." + format)
+                                .build().toString())
+                .body(resource);
     }
 
 }

@@ -5,7 +5,12 @@
         <nav th:replace="~{template :: menu}"></nav>
         <div class="container">
             <h1 th:text="#{menu.products}" style="text-transform:uppercase;">...</h1>
-            <p th:text="'Buscar: '">...</p>
+            <form action="/products" method="get">
+                <div class="input-group my-2">
+                    <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre" name="name">
+                    <button class="btn btn-sm btn-primary">Buscar</button>
+                </div>
+            </form>
             <div class="row">
                 <!-- th:block -->
                 <div class="col-12 col-md-6 col-lg-4 mt-3 p-4" th:each="item,cont : ${data}">
